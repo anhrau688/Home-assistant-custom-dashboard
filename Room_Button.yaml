@@ -1,0 +1,503 @@
+type: custom:mushroom-legacy-template-card
+entity: switch.phong_khach
+primary: PHÒNG KHÁCH
+secondary: |
+  {{ expand(config.entity)
+     | selectattr('state', 'eq', 'on')
+     | list
+     | count }}/{{ expand(config.entity) | list | count }} đang ON
+icon: mdi:sofa
+icon_color: |
+  {{ 'amber' if is_state(config.entity,'on') else 'grey' }}
+layout: vertical
+grid_options:
+  columns: 9
+  rows: 2
+card_mod:
+  style: |
+    ha-card {
+      border-radius: 20px;
+      overflow: hidden;
+      text-shadow: 2px 2px 2px rgba(0,0,0,.99);
+      transition: transform 0.2s ease, box-shadow 0.4s ease;
+      
+      /* 👇 ảnh nền nút chính*/
+      background-image:
+        {% if is_state(config.entity, 'on') %}                      
+          linear-gradient(rgba(0,0,0,0.10), rgba(0,0,0,0.55)),
+          url("/local/picture/phk.jpg");
+                       
+        {% else %}                      
+          linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.55)),
+          url("/local/picture/phkoff.jpg");                     
+        {% endif %};
+
+      background-size: cover;
+      background-position: center;      
+      
+      /* 👇 viền sáng nút chính*/
+      box-shadow:
+        {% if is_state(config.entity,'on') %}
+          0 0 22px rgba(255,190,110,.99);
+        {% else %}
+          5px 5px 6px rgba(0,0,0,.45);
+        {% endif %};
+        
+      /* 👇 HIỆU ỨNG NỔI / LÕM */
+      transform:
+        {% if is_state(config.entity,'on') %}
+          translateY(3px) scale(0.98);
+        {% else %}
+          translateY(0) scale(1);
+        {% endif %};
+    }
+
+    /* 👆 lõm lúc đang chạm */
+    ha-card:active {
+      transform: translateY(6px) scale(0.95);
+      box-shadow: inset 0 8px 16px rgba(0,0,0,0.8);
+    }
+hold_action:
+  action: none
+tap_action:
+  action: fire-dom-event
+  browser_mod:
+    service: browser_mod.popup
+    data:
+      title: PHÒNG KHÁCH
+      size: normal
+      content:
+        type: vertical-stack
+        cards:
+          - type: custom:mod-card
+            card_mod:
+              style: |
+                ha-card {                
+                  /* 👇 ảnh nền popup*/
+                  background-image:
+                    {% if is_state('switch.phong_khach_light', 'on') %}                      
+                      linear-gradient(rgba(0,0,0,0.10), rgba(0,0,0,0.55)),
+                      url("/local/picture/phk.jpg");
+                     
+                    {% else %}                      
+                      linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.55)),
+                      url("/local/picture/phkoff.jpg");                     
+                    {% endif %};
+
+                  background-size: cover;
+                  background-position: center;
+                  border-radius: 20px;
+                  padding: 20px;
+                  opacity: 1;
+                }
+            card:
+              type: grid
+              columns: 2
+              square: false
+              cards:
+                - type: custom:mushroom-entity-card
+                  entity: switch.cbu_bk7231n_l1
+                  name: Downlight
+                  layout: vertical
+                  fill_container: true
+                  secondary_info: none
+                  icon: mdi:light-recessed
+                  icon_color: amber
+                  hold_action: none
+                  tap_action:
+                    action: toggle
+                  card_mod:
+                    style: |
+                      ha-card {
+                        transition: transform .25s ease, box-shadow .25s ease;
+                        cursor: pointer;
+
+                        /* 👇 độ trong suốt của button */ 
+                        background: rgba(0, 0, 0, 0.35);
+                        
+                        /* 👇 HIỆU ỨNG NỔI / LÕM */ 
+                        transform:
+                          {% if is_state(config.entity,'on') %}
+                            translateY(3px) scale(.97);
+                          {% else %}
+                            none;
+                          {% endif %};
+                          
+                        /* 👇 viền sáng nút*/ 
+                        box-shadow:
+                          {% if is_state(config.entity,'on') %}
+                            0 0 14px rgba(255,190,110,.9);
+                          {% else %}
+                            5px 5px 6px rgba(0,0,0,0.9);
+                          {% endif %};
+                      }
+                      /* 👆 lõm lúc đang chạm */
+                      ha-card:active {
+                        transform: translateY(6px) scale(.95);
+                        box-shadow: inset 0 8px 16px rgba(0,0,0,.8);
+                      }
+                - type: custom:mushroom-entity-card
+                  entity: switch.cb3s_l2
+                  name: Led rèm
+                  layout: vertical
+                  fill_container: true
+                  secondary_info: none
+                  icon: mdi:curtains
+                  icon_color: amber
+                  hold_action: none
+                  tap_action:
+                    action: toggle
+                  card_mod:
+                    style: |
+                      ha-card {
+                        transition: transform .25s ease, box-shadow .25s ease;
+                        cursor: pointer;
+
+                        /* 👇 độ trong suốt của button */ 
+                        background: rgba(0, 0, 0, 0.35);
+                        
+
+                        /* 👇 HIỆU ỨNG NỔI / LÕM */ 
+                        transform:
+                          {% if is_state(config.entity,'on') %}
+                            translateY(3px) scale(.97);
+                          {% else %}
+                            none;
+                          {% endif %};
+                          
+                        /* 👇 viền sáng nút*/ 
+                        box-shadow:
+                          {% if is_state(config.entity,'on') %}
+                            0 0 14px rgba(255,190,110,.9);
+                          {% else %}
+                            5px 5px 6px rgba(0,0,0,.9);
+                          {% endif %};
+                      }
+                      /* 👆 lõm lúc đang chạm */
+                      ha-card:active {
+                        transform: translateY(6px) scale(.95);
+                        box-shadow: inset 0 8px 16px rgba(0,0,0,.8);
+                      }
+                - type: custom:mushroom-entity-card
+                  entity: switch.tuya_t1_bk7238_l2
+                  name: Đèn ban công
+                  layout: vertical
+                  fill_container: true
+                  secondary_info: none
+                  icon: mdi:dome-light
+                  icon_color: amber
+                  hold_action: none
+                  tap_action:
+                    action: toggle
+                  card_mod:
+                    style: |
+                      ha-card {
+                        transition: transform .25s ease, box-shadow .25s ease;
+                        cursor: pointer;
+
+                        /* 👇 độ trong suốt của button */ 
+                        background: rgba(0, 0, 0, 0.35);
+                        
+                        /* 👇 HIỆU ỨNG NỔI / LÕM */ 
+                        transform:
+                          {% if is_state(config.entity,'on') %}
+                            translateY(3px) scale(.97);
+                          {% else %}
+                            none;
+                          {% endif %};
+                          
+                        /* 👇 viền sáng nút*/ 
+                        box-shadow:
+                          {% if is_state(config.entity,'on') %}
+                            0 0 14px rgba(255,190,110,.9);
+                          {% else %}
+                            5px 5px 6px rgba(0,0,0,.9);
+                          {% endif %};
+                      }
+                      /* 👆 lõm lúc đang chạm */
+                      ha-card:active {
+                        transform: translateY(6px) scale(.95);
+                        box-shadow: inset 0 8px 16px rgba(0,0,0,.8);
+                      }
+                - type: tile
+                  entity: cover.rem_phong_khach
+                  name: Rèm chính
+                  hold_action: none
+                  tap_action: none
+                  features:
+                    - type: cover-open-close
+                    - type: cover-position
+                  card_mod:
+                    style: |
+                      ha-card {
+                        transition: transform .25s ease, box-shadow .25s ease;
+                        cursor: pointer;
+
+                        /* 👇 độ trong suốt của button */ 
+                        background: rgba(0, 0, 0, 0.35);
+                                                
+                        /* 👇 HIỆU ỨNG NỔI / LÕM */ 
+                        transform:
+                          {% if is_state(config.entity,'on') %}
+                            translateY(3px) scale(.97);
+                          {% else %}
+                            none;
+                          {% endif %};
+                          
+                        /* 👇 viền sáng nút*/ 
+                        box-shadow:
+                          {% if is_state(config.entity,'on') %}
+                            0 0 14px rgba(255,190,110,.9);
+                          {% else %}
+                            5px 5px 6px rgba(0,0,0,.9);
+                          {% endif %};
+                      }
+                      /* 👆 lõm lúc đang chạm */
+                      ha-card:active {
+                        transform: translateY(6px) scale(.95);
+                        box-shadow: inset 0 8px 16px rgba(0,0,0,.8);
+                      }                       
+                - type: tile
+                  entity: fan.panasonic_living_fan
+                  name: Living Fan
+                  layout: vertical
+                  secondary_info: none
+                  features:
+                    - type: fan-speed
+                    - type: fan-oscillate
+                  features_position: button
+                  fill_container: true
+                  icon_animation: true
+                  icon_color: amber
+                  card_mod:
+                    style: |
+                      ha-card {
+                        transition: transform .25s ease, box-shadow .25s ease;
+                        cursor: pointer;
+
+                        transform:
+                          {% if is_state(config.entity,'on') %}
+                            translateY(3px) scale(.97);
+                          {% else %}
+                            none;
+                          {% endif %};
+
+                        box-shadow:
+                          {% if is_state(config.entity,'on') %}
+                            0 0 14px rgba(0,255,255,.9);
+                          {% else %}
+                            5px 5px 6px rgba(0,0,0,0.9);
+                          {% endif %};
+
+                        /* 👇 độ trong suốt của button */ 
+                        background: rgba(0, 0, 0, 0.35);
+                        
+                      }
+
+                      ha-card:active {
+                        transform: translateY(6px) scale(.95);
+                        box-shadow: inset 0 8px 16px rgba(0,0,0,.8);
+                      }                  
+                  hold_action:
+                    action: none
+                  tap_action:
+                    action: fire-dom-event
+                    browser_mod:
+                      service: browser_mod.popup
+                      data:
+                        title: LIVING FAN
+                        size: normal
+                        content:
+                          type: vertical-stack
+                          cards:
+                            - type: custom:mod-card
+                              card_mod:
+                                style: |
+                                  ha-card {
+                                    /* 👇 ảnh nền popup */
+                                    background-image:                                      
+                                        linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+                                        url("/local/picture/phk.jpg");                                      
+
+                                    background-size: cover;
+                                    background-position: center;
+                                    border-radius: 20px;
+                                    padding: 10px;
+                                  }
+                              card:
+                                type: vertical-stack
+                                cards:
+                                  - type: custom:mushroom-fan-card
+                                    entity: fan.panasonic_living_fan
+                                    name: Panasonic Living Fan
+                                    secondary_info: state
+                                    layout: vertical
+                                    fill_container: true
+                                    icon_animation: true
+                                    show_percentage_control: false
+                                    show_oscillate_control: false
+                                    collapsible_controls: false
+                                    icon: mdi:fan
+                                    tap_action: none
+                                    hold_action: none
+                                    card_mod:
+                                      style: |
+                                        ha-card {
+                                          transition: transform .25s ease, box-shadow .25s ease;
+                                          cursor: pointer;
+                                          
+                                          /* 👇 HIỆU ỨNG NỔI / LÕM */ 
+                                          transform:
+                                            {% if is_state(config.entity,'on') %}
+                                              translateY(3px) scale(.97);
+                                            {% else %}
+                                              none;
+                                            {% endif %};
+                                            
+                                          /* 👇 viền sáng nút*/ 
+                                          box-shadow:
+                                            {% if is_state(config.entity,'on') %}
+                                              0 0 14px rgba(0,255,0,.9);
+                                            {% else %}
+                                              5px 5px 6px rgba(0,0,0,.9);
+                                            {% endif %};
+                                        }
+                                        /* 👆 lõm lúc đang chạm */
+                                        ha-card:active {
+                                          transform: translateY(6px) scale(.95);
+                                          box-shadow: inset 0 8px 16px rgba(0,0,0,.8);
+                                        }                                    
+                                  - type: grid
+                                    columns: 2
+                                    square: false
+                                    cards:
+                                      - type: custom:mushroom-entity-card
+                                        entity: switch.panasonic_living_fan_rhythm
+                                        name: Rhythm
+                                        icon: mdi:weather-windy
+                                        icon_color: amber
+                                        layout: vertical
+                                        secondary_info: none
+                                        fill_container: true
+                                        tap_action:
+                                          action: toggle
+                                        hold_action:
+                                          action: none
+                                        card_mod:
+                                          style: |
+                                            ha-card {
+                                              transition: transform .25s ease, box-shadow .25s ease;
+                                              cursor: pointer;
+                                              
+                                              /* 👇 HIỆU ỨNG NỔI / LÕM */ 
+                                              transform:
+                                                {% if is_state(config.entity,'on') %}
+                                                  translateY(3px) scale(.97);
+                                                {% else %}
+                                                  none;
+                                                {% endif %};
+                                                
+                                              /* 👇 viền sáng nút*/ 
+                                              box-shadow:
+                                                {% if is_state(config.entity,'on') %}
+                                                  0 0 14px rgba(255,190,110,.9);
+                                                {% else %}
+                                                  5px 5px 6px rgba(0,0,0,.9);
+                                                {% endif %};
+                                            }
+                                            /* 👆 lõm lúc đang chạm */
+                                            ha-card:active {
+                                              transform: translateY(6px) scale(.95);
+                                              box-shadow: inset 0 8px 16px rgba(0,0,0,.8);
+                                            }
+                                      - type: custom:mushroom-select-card
+                                        entity: select.panasonic_living_fan_timer
+                                        name: Timer
+                                        icon: mdi:timer-outline
+                                        icon_color: red
+                                        secondary_info: none
+                                        layout: vertical
+                                        fill_container: true
+                                        tap_action: none
+                                        hold_action: none
+                                        card_mod:
+                                          style: |
+                                            ha-card {
+                                              transition: transform .25s ease, box-shadow .25s ease;
+                                              cursor: pointer;  
+
+                                                  /* 👇 HIỆU ỨNG NỔI / LÕM */ 
+                                                  transform:
+                                                    {% if not is_state(config.entity,'Off') %}
+                                                      translateY(3px) scale(.97);
+                                                    {% else %}
+                                                      none;
+                                                    {% endif %};                                        
+                                                  
+                                              /* 👇 viền sáng nút*/ 
+                                              box-shadow:
+                                                {% if not is_state(config.entity,'Off') %}
+                                                  0 0 14px rgba(255,70,70,.9);
+                                                {% else %}
+                                                  5px 5px 6px rgba(0,0,0,.9);                                                  
+                                                {% endif %};
+
+                                            } /* 👆 lõm lúc đang chạm */
+                                             ha-card:active {
+                                              transform: translateY(6px) scale(.95);
+                                              box-shadow: inset 0 8px 16px rgba(0,0,0,.8);
+                                            }       
+                - type: tile
+                  entity: climate.dieu_hoa_phong_khach
+                  name: Điều hòa
+                  hold_action: none
+                  tap_action: none
+                  hide_state: false
+                  state_content:
+                    - state
+                    - current_temperature
+                  features_position: outline
+                  features:
+                    - type: climate-hvac-modes
+                    - type: target-temperature
+                    - type: climate-fan-modes
+                    - type: climate-preset-modes
+                    - type: climate-swing-modes
+                  card_mod:
+                    style: |
+                      ha-card {
+                        transition: transform .25s ease, box-shadow .25s ease;
+                        cursor: pointer;
+                        
+                        /* 👇 HIỆU ỨNG NỔI / LÕM */ 
+                        transform:
+                          {% if not is_state(config.entity,'off') %}
+                            translateY(3px) scale(.97);
+                          {% else %}
+                            none;
+                          {% endif %};
+
+                        /* 👇 độ trong suốt của button */ 
+                        background: rgba(0, 0, 0, 0.35);
+                                                  
+                        /* 👇 viền sáng nút*/ 
+                        box-shadow:
+                          {% if is_state(config.entity, 'cool') %}
+                            0 0 22px rgba(0,170,255,.9);
+                          {% elif is_state(config.entity, 'heat') %}
+                            0 0 22px rgba(255,60,60,.9);
+                          {% elif is_state(config.entity, 'dry') %}
+                            0 0 22px rgba(255,165,0,.9);                            
+                          {% elif is_state(config.entity, 'fan_only') %}
+                            0 0 22px rgba(0,255,255,.9);                            
+                          {% elif is_state(config.entity, 'auto') %}
+                            0 0 22px rgba(50,255,100,.9);
+                          {% else %}
+                            5px 5px 6px rgba(0,0,0,.9);
+                          {% endif %};
+                      }
+                      /* 👆 lõm lúc đang chạm */
+                      ha-card:active {
+                        transform: translateY(6px) scale(.95);
+                        box-shadow: inset 0 8px 16px rgba(0,0,0,.8);
+                      } 
