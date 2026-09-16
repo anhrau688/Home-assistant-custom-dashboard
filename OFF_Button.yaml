@@ -1,0 +1,65 @@
+type: custom:mushroom-legacy-template-card
+entity: switch.phong_khach
+primary: null
+secondary: |
+  {{ states(config.entity) | upper }}
+icon: mdi:power
+icon_color: |
+  {{ 'green' if is_state(config.entity,'on') else 'red' }}
+layout: vertical
+grid_options:
+  columns: 3
+  rows: 2
+hold_action:
+  action: none
+tap_action:
+  action: perform-action
+  perform_action: switch.turn_off
+  target:
+    entity_id: switch.phong_khach
+  data: {}
+card_mod:
+  style: |
+    ha-card {
+      border-radius: 22px;
+      overflow: hidden;
+      color: white;
+      text-shadow: 2px 2px 2px rgba(0,0,0,.99);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+
+      /* 👇 ảnh nền nút */
+      background-image:
+        {% if is_state(config.entity, 'on') %}                      
+          linear-gradient(rgba(0,0,0,0.10), rgba(0,0,0,0.55)),
+          url("/local/picture/a.jpg");
+                       
+        {% else %}                      
+          linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.55)),
+          url("/local/picture/a.jpg");                     
+        {% endif %};
+
+      background-size: cover;
+      background-position: center;  
+
+      /* 👇 viền sáng nút */
+      box-shadow:
+        {% if is_state(config.entity,'on') %}
+          0 0 22px rgba(255,190,110,0.9);
+        {% else %}
+          5px 5px 6px rgba(0,0,0,0.45);
+        {% endif %};
+        
+      /* 👇 HIỆU ỨNG NỔI / LÕM */
+      transform:
+        {% if is_state(config.entity,'on') %}
+          translateY(3px) scale(0.98);
+        {% else %}
+          translateY(0) scale(1);
+        {% endif %};
+    }
+
+    /* 👆 lõm lúc đang chạm */
+    ha-card:active {
+      transform: translateY(6px) scale(0.95);
+      box-shadow: inset 0 8px 16px rgba(0,0,0,0.8);
+    }
