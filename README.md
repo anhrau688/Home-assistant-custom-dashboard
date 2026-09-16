@@ -1,5 +1,5 @@
 # Home-assistant-custom-dashboard
-Wath full Guide how to setup this dashboard on Youtube
+Wath full Guide video how to setup this dashboard on Youtube
 https://youtu.be/grtwwBjP2r0?si=uAHG8RC1h5fMYXFq
 # Preview
 <img width="694" height="867" alt="Screenshot 2026-09-16 233807" src="https://github.com/user-attachments/assets/84a22fa3-397c-42da-972e-e75105047d18" />
