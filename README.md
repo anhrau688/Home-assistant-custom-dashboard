@@ -1,7 +1,7 @@
 # Home-assistant-custom-dashboard
-Wath full Guide video how to setup this dashboard on Youtube
+Wath full video how to config this dashboard on Youtube:
 https://youtu.be/grtwwBjP2r0?si=uAHG8RC1h5fMYXFq
-you need install below repo via HACS:
+# you need install below repo via HACS:
 1. Mushroom card: https://github.com/piitaya/lovelace-mushroom
 2. Card-mod : https://github.com/thomasloven/lovelace-card-mod
 3. Browswe mod: https://github.com/thomasloven/hass-browser_mod
