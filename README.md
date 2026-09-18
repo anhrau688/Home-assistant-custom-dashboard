@@ -6,6 +6,7 @@ https://youtu.be/grtwwBjP2r0?si=uAHG8RC1h5fMYXFq
 2. Card-mod : https://github.com/thomasloven/lovelace-card-mod
 3. Browswe mod: https://github.com/thomasloven/hass-browser_mod
 4. Button-card: https://github.com/custom-cards/button-card
+5. iOS theme: https://github.com/basnijholt/lovelace-ios-themes
 # Preview
 <img width="694" height="867" alt="Screenshot 2026-09-16 233807" src="https://github.com/user-attachments/assets/84a22fa3-397c-42da-972e-e75105047d18" />
 <img width="579" height="684" alt="Screenshot 2026-09-16 233837" src="https://github.com/user-attachments/assets/a9ee7ea0-14a9-4b27-8508-5de6ca5d70ad" />
